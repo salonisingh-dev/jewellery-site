@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart | Shailendra Jewellers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:'Poppins',sans-serif;background:#f7f7f7;margin:0}
+.container{max-width:1100px;margin:auto;padding:60px 20px}
+h1{text-align:center;font-family:'Playfair Display'}
+
+.cart-summary{
+  background:linear-gradient(135deg,#f7e7a9,#d4af37);
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:25px;
+  text-align:center;
+}
+.cart-summary h3{
+  font-family:'Playfair Display';
+  margin-bottom:6px;
+}
+.cart-summary p{font-size:14px}
+
+.cart-box{
+background:#fff;
+border-radius:20px;
+padding:30px;
+box-shadow:0 20px 50px rgba(0,0,0,.1)
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #eee;
+padding:15px 0
+}
+.cart-item:last-child{border:none}
+
+.remove{
+color:red;
+cursor:pointer;
+font-size:14px
+}
+
+.empty{text-align:center;color:#777}
+
+button{
+margin-top:20px;
+padding:14px 40px;
+border:none;
+border-radius:30px;
+background:#111;
+color:#fff;
+cursor:pointer
+}
+
+.trust{
+margin-top:25px;
+text-align:center;
+color:#555;
+font-size:14px
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Your Cart</h1>
+
+<div class="cart-summary">
+  <h3>Your Jewellery Cart 💎</h3>
+  <p>Handcrafted luxury pieces reserved just for you</p>
+</div>
+
+<div class="cart-box" id="cartBox"></div>
+
+<h3 id="cartTotal" style="margin-top:20px;text-align:right"></h3>
+
+<div style="text-align:center">
+  <button onclick="clearCart()">Clear Cart</button>
+
+  <a href="checkout.html">
+    <button>Proceed to Checkout</button>
+  </a>
+
+  <a href="#" onclick="orderWhatsApp()">
+    <button style="background:#25D366">Order on WhatsApp</button>
+  </a>
+
+  <div class="trust">
+    🔒 Secure Checkout · 💎 Hallmarked Jewellery · 📦 Safe Insured Delivery
+  </div>
+</div>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let box = document.getElementById("cartBox");
+let totalEl = document.getElementById("cartTotal");
+
+function renderCart(){
+  box.innerHTML="";
+  let total = 0;
+
+  if(cart.length===0){
+    box.innerHTML=`
+      <p class="empty">Your cart is empty 💔</p>
+      <div class="trust">
+        ✨ 100% Certified Jewellery <br>
+        📦 Free Insured Delivery <br>
+        💎 Premium Quality Guarantee
+      </div>
+    `;
+    totalEl.innerText="";
+    return;
+  }
+
+  cart.forEach((item,i)=>{
+    total += item.price;
+
+    box.innerHTML+=`
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <span>₹${item.price.toLocaleString()}</span>
+        <span class="remove" onclick="removeItem(${i})">Remove</span>
+      </div>`;
+  });
+
+  totalEl.innerText = "Total : ₹" + total.toLocaleString();
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  renderCart();
+}
+
+function clearCart(){
+  localStorage.removeItem("cart");
+  cart=[];
+  renderCart();
+}
+
+function orderWhatsApp(){
+  if(cart.length===0){
+    alert("Cart is empty");
+    return;
+  }
+
+  let message = "Hello Shailendra Jewellers,%0A%0AOrder Details:%0A";
+  cart.forEach((item,i)=>{
+    message += (i+1)+". "+item.name+" - ₹"+item.price+"%0A";
+  });
+  message += "%0AThank you 💎";
+
+  window.open("https://wa.me/911234567890?text="+message,"_blank");
+}
+
+renderCart();
+</script>
+
+</body>
+</html>  

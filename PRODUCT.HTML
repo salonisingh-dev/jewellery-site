@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Jewellery | Shailendra Jewellers</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --gold:#d4af37;
+  --dark:#111;
+  --soft:#f7f7f7;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:#fff;color:#222}
+
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+nav{
+  max-width:1300px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 20px;
+}
+nav a{text-decoration:none;color:#222;margin:0 14px;font-weight:500;}
+nav a:hover{color:var(--gold);}
+
+.cart-icon{
+  position:relative;
+  margin-left:15px;
+  font-size:18px;
+}
+
+#cartCount{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  padding:2px 6px;
+  border-radius:50%;
+}
+
+
+/* CONTAINER */
+.container{max-width:1300px;margin:auto;padding:60px 20px;}
+
+/* SEARCH BAR */
+.search-bar{
+  text-align:center;
+  margin-bottom:30px;
+}
+.search-bar input{
+  width:300px;
+  padding:12px 18px;
+  border-radius:30px;
+  border:1px solid #ccc;
+  outline:none;
+  font-size:16px;
+}
+.search-bar input:focus{border-color:var(--gold);}
+
+/* FILTER BAR */
+.filters{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:50px;
+}
+.filters button{
+  padding:12px 28px;
+  border-radius:30px;
+  border:1px solid #ddd;
+  background:#fff;
+  cursor:pointer;
+  font-weight:500;
+}
+.filters button.active,
+.filters button:hover{
+  background:var(--gold);
+  color:#fff;
+  border-color:var(--gold);
+}
+
+/* PRODUCTS GRID */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.product{
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,.12);
+  transition:.4s;
+  background:#fff;
+}
+.product:hover{
+  transform:translateY(-12px);
+  box-shadow:0 30px 70px rgba(0,0,0,.18);
+}
+.product img{
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  transition:.6s;
+}
+.product:hover img{transform:scale(1.08);}
+.info{padding:22px;}
+.info h4{font-family:'Playfair Display';margin-bottom:6px;}
+.price{color:var(--gold);font-weight:600;margin:6px 0;}
+.info button{
+  margin-top:10px;
+  padding:10px 26px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#e6c76b,#d4af37);
+  color:#fff;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  background:#f5f5f5;
+  padding:70px 20px;
+  margin-top:80px;
+}
+.footer-grid{
+  max-width:1300px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:40px;
+}
+footer h4{margin-bottom:14px;}
+footer a{display:block;color:#555;text-decoration:none;margin-bottom:8px;}
+footer a:hover{color:#000;}
+.copy{text-align:center;margin-top:40px;color:#777;}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div style="font-family:'Playfair Display';font-size:26px;color:#d4af37">
+      Shailendra Jewellers
+    </div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="Product.html">Collections</a>
+      <a href="#footer">Contact</a>
+
+      <!--Cart Add-->
+      <a href="cart.html" class="cart-icon">
+  <i class="fa fa-shopping-cart"></i>
+  <span id="cartCount">0</span>
+</a>
+
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+  <h2 style="text-align:center;font-family:'Playfair Display';font-size:42px">
+    Our Jewellery Collection
+  </h2>
+  <p style="text-align:center;color:#777;margin:14px 0 40px">
+    Explore premium rings, necklaces, anklets, earrings & bracelets
+  </p>
+
+  <!-- SEARCH BAR -->
+  <div class="search-bar">
+    <input type="text" placeholder="Search products..." id="searchInput">
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <button class="active" onclick="filterItems('all', this)">All</button>
+    <button onclick="filterItems('ring', this)">Rings</button>
+    <button onclick="filterItems('necklace', this)">Necklaces</button>
+    <button onclick="filterItems('anklet', this)">Anklets</button>
+    <button onclick="filterItems('earring', this)">Earrings</button>
+    <button onclick="filterItems('bracelet', this)">Bracelets</button>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products" id="productGrid">
+
+    <!-- ===== RINGS ===== -->
+    <div class="product ring" data-name="Diamond Solitaire Ring">
+      <img src="https://i.pinimg.com/736x/0a/e3/6b/0ae36b1118ecefe3932017a7da9a3dc3.jpg" alt="Diamond Solitaire Ring">
+      <div class="info">
+        <h4>Diamond Solitaire Ring</h4>
+        <div class="price">₹4,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product ring" data-name="Gold Wedding Ring">
+      <img src="https://i.pinimg.com/736x/3d/df/87/3ddf873b5808177eb379f3369c5407c8.jpg" alt="Gold Wedding Ring">
+      <div class="info">
+        <h4>Gold Wedding Ring</h4>
+        <div class="price">₹1,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product ring" data-name="Platinum Ring">
+      <img src="https://i.pinimg.com/736x/81/cd/c3/81cdc35389e47225d7402a340a1c366b.jpg" alt="Platinum Ring">
+      <div class="info">
+        <h4>Platinum Ring</h4>
+        <div class="price">₹2,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product ring" data-name="Platinum Solitaire Ring">
+      <img src="https://i.pinimg.com/736x/06/0f/4a/060f4ad107078c60d771e6574bfec1e3.jpg" alt="Platinum Solitaire Ring">
+      <div class="info">
+        <h4>Platinum Solitaire Ring</h4>
+        <div class="price">₹2,79,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product ring" data-name="Rose Gold Ring">
+      <img src="https://i.pinimg.com/1200x/a8/f6/d3/a8f6d3f9676c036e1605c2dd939e7143.jpg" alt="Rose Gold Ring">
+      <div class="info">
+        <h4>Rose Gold Ring</h4>
+        <div class="price">₹1,89,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product ring" data-name="Engagement Ring">
+      <img src="https://i.pinimg.com/736x/75/45/9d/75459da609b0ce35a636d0b6920f9b40.jpg" alt="Engagement Ring">
+      <div class="info">
+        <h4>Engagement Ring</h4>
+        <div class="price">₹49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product ring" data-name="Couple Ring">
+      <img src="https://i.pinimg.com/1200x/bb/77/9a/bb779a9fa720a8d2a9e47f3cf30f2843.jpg" alt="Couple Ring">
+      <div class="info">
+        <h4>Couple Ring</h4>
+        <div class="price">₹2,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product ring" data-name="Designer Ring">
+      <img src="https://i.pinimg.com/736x/1b/7d/34/1b7d3452649c2fa4ae9a550ae86290b7.jpg" alt="Designer Ring">
+      <div class="info">
+        <h4>Designer Ring</h4>
+        <div class="price">₹1,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product ring" data-name="Minimal Ring">
+      <img src="https://i.pinimg.com/736x/fb/af/ec/fbafec06a10abc8945ccfc52f38fbae2.jpg" alt="Minimal Ring">
+      <div class="info">
+        <h4>Minimal Ring</h4>
+        <div class="price">₹99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product ring" data-name="Daily Wear Ring">
+      <img src="https://i.pinimg.com/1200x/2a/24/49/2a24494fa0b9c9037e062f61b0bb54b7.jpg" alt="Daily Wear Ring">
+      <div class="info">
+        <h4>Daily Wear Ring</h4>
+        <div class="price">₹69,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product ring" data-name="Bridal Ring">
+      <img src="https://i.pinimg.com/1200x/8d/3f/32/8d3f329ec7223be814892e5b68b4bbae.jpg" alt="Bridal Ring">
+      <div class="info">
+        <h4>Bridal Ring</h4>
+        <div class="price">₹1,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product ring" data-name="Adjustable Ring">
+      <img src="https://i.pinimg.com/1200x/11/d3/e3/11d3e3ce5568e3662c6f55bdc77857cc.jpg" alt="Adjustable Ring">
+      <div class="info">
+        <h4>Adjustable Ring</h4>
+        <div class="price">₹88,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ===== NECKLACES ===== -->
+    <div class="product necklace" data-name="Bridal Gold Necklace">
+      <img src="https://i.pinimg.com/736x/3e/76/07/3e7607254f0c2c104bac149c70e9dd06.jpg" alt="Bridal Gold Necklace">
+      <div class="info">
+        <h4>Bridal Gold Necklace</h4>
+        <div class="price">₹2,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product necklace" data-name="Diamond Choker">
+      <img src="https://i.pinimg.com/736x/c7/a6/bb/c7a6bb61a980dc62f5efd3a325787ebe.jpg" alt="Diamond Choker">
+      <div class="info">
+        <h4>Diamond Choker</h4>
+        <div class="price">₹3,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product necklace" data-name="Designer Necklace">
+      <img src="https://i.pinimg.com/736x/38/5e/91/385e91d6a5743562a8fcb7aba81662c4.jpg" alt="Designer Necklace">
+      <div class="info">
+        <h4>Designer Necklace</h4>
+        <div class="price">₹1,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product necklace" data-name="Temple Necklace">
+      <img src="https://i.pinimg.com/1200x/ce/e0/fa/cee0fac9d5c465e4947ae1624986bd63.jpg" alt="Temple Necklace">
+      <div class="info">
+        <h4>Temple Necklace</h4>
+        <div class="price">₹99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product necklace" data-name="long haar">
+      <img src="https://i.pinimg.com/1200x/10/67/e9/1067e942edfbb70c8963f50609ae4ead.jpg" alt="long haar">
+      <div class="info">
+        <h4>Long Haar</h4>
+        <div class="price">₹2,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product necklace" data-name="Minimal Necklace">
+      <img src="https://i.pinimg.com/736x/75/c9/c7/75c9c734dc15af885dd22b9fc91fcea2.jpg" alt="Minimal Necklace">
+      <div class="info">
+        <h4>Minimal Necklace</h4>
+        <div class="price">₹89,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product necklace" data-name="Stone Studded Necklace">
+      <img src="https://i.pinimg.com/1200x/d6/a0/b6/d6a0b6f084e0e134754fc1731c6f6968.jpg" alt="Stone Studded Necklace">
+      <div class="info">
+        <h4>Stone Studded Necklace</h4>
+        <div class="price">₹4,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product necklace" data-name="Pearl Necklace">
+      <img src="https://i.pinimg.com/1200x/52/40/62/52406299dacc074d01554a05ca7a71bf.jpg" alt="Pearl Necklace">
+      <div class="info">
+        <h4>Pearl Necklace</h4>
+        <div class="price">₹1,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product necklace" data-name="Gold Pendant Necklace">
+      <img src="https://i.pinimg.com/1200x/18/64/6c/18646c0ebc8fdb12b651bfa423372a3c.jpg" alt="Gold Pendant Necklace">
+      <div class="info">
+        <h4>Gold Pendant Necklace</h4>
+        <div class="price">₹1,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product necklace" data-name="Diamond Necklace">
+      <img src="https://i.pinimg.com/1200x/63/b2/cf/63b2cf88123cd65dfc4b566e6649cf77.jpg" alt="Diamond Necklace">
+      <div class="info">
+        <h4>Diamond Necklace</h4>
+        <div class="price">₹3,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ===== ANKLETS ===== -->
+    <div class="product anklet" data-name="Gold Anklet">
+      <img src="https://i.pinimg.com/736x/c6/91/59/c6915957a9dfd10480369bfc94c0696f.jpg" alt="Gold Anklet">
+      <div class="info">
+        <h4>Gold Anklet</h4>
+        <div class="price">₹79,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Silver Anklet">
+      <img src="https://i.pinimg.com/736x/5f/bc/15/5fbc159266afe580265fe69c17f2b5c1.jpg" alt="Silver Anklet">
+      <div class="info">
+        <h4>Silver Anklets</h4>
+        <div class="price">₹89,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Designer Anklet">
+      <img src="https://i.pinimg.com/736x/c7/5c/c6/c75cc62310c8df99db7f2838a691c000.jpg" alt="Designer Anklet">
+      <div class="info">
+        <h4>Designer Anklet</h4>
+        <div class="price">₹69,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Bridal Anklet">
+      <img src="https://i.pinimg.com/736x/70/2d/80/702d803cf94609f7bbd07d24d132b905.jpg" alt="Bridal Anklet">
+      <div class="info">
+        <h4>Bridal Anklet</h4>
+        <div class="price">₹61,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product anklet" data-name="Traditional Anklet">
+      <img src="https://i.pinimg.com/736x/10/1a/68/101a683501f8aa8a0ee16bbb3c041e2d.jpg" alt="Traditional Anklet">
+      <div class="info">
+        <h4>Traditional Anklet</h4>
+        <div class="price">₹79,000</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Minimal Anklet">
+      <img src="https://i.pinimg.com/736x/1a/ea/2c/1aea2c7809f8b35aedc56974658fe20e.jpg" alt="Minimal Anklet">
+      <div class="info">
+        <h4>Minimal Anklet</h4>
+        <div class="price">₹59,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Stone Studded Anklet">
+      <img src="https://i.pinimg.com/1200x/0b/8e/3c/0b8e3c44a70b7b9ef4a806dcbb210d2d.jpg" alt="Stone Studded Anklet">
+      <div class="info">
+        <h4>Stone Studded Anklet</h4>
+        <div class="price">₹88,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Temple Anklet">
+      <img src="https://i.pinimg.com/1200x/52/ec/ac/52ecace1d747e2b4ff913c740c4ad9d2.jpg" alt="Temple Anklet">
+      <div class="info">
+        <h4>Temple Anklet</h4>
+        <div class="price">₹55,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+
+    <div class="product anklet" data-name="Daily Wear Anklet">
+      <img src="https://i.pinimg.com/736x/2c/8f/ed/2c8fede136d4e06bd9dc91a9d1da62e6.jpg" alt="Daily Wear Anklet">
+      <div class="info">
+        <h4>Daily Wear Anklet</h4>
+        <div class="price">₹98,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product anklet" data-name="Diamond Anklet">
+      <img src="https://i.pinimg.com/1200x/55/3e/c8/553ec8e18a5d5663e659ca20c8bab9c9.jpg" alt="Diamond Anklet">
+      <div class="info">
+        <h4>Diamond Anklet</h4>
+        <div class="price">₹1,49,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ===== EARRINGS ===== -->
+    <div class="product earring" data-name="Silver Earrings">
+      <img src="https://i.pinimg.com/736x/36/93/b9/3693b9bc8bf8f2bdbefbab199b5dc9d6.jpg" alt="Silver Earrings">
+      <div class="info">
+        <h4>Silver Earrings</h4>
+        <div class="price">₹99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product earring" data-name="Chandelier Earrings">
+      <img src="https://i.pinimg.com/1200x/9d/1b/d3/9d1bd3f89d5f2e1a9bb14ce0df97eff9.jpg" alt="Chandelier Earrings">
+      <div class="info">
+        <h4>Chandelier Earrings</h4>
+        <div class="price">₹88,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product earring" data-name="Gold Hoop Earrings">
+      <img src="https://i.pinimg.com/1200x/27/7f/d3/277fd3ba9a3800c25bdfb50cf2e4517a.jpg" alt="Gold Hoop Earrings">
+      <div class="info">
+        <h4>Gold Hoop Earrings</h4>
+        <div class="price">₹1,29,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product earring" data-name="Pearl Drop Earrings">
+      <img src="https://i.pinimg.com/1200x/d8/a5/6e/d8a56e9ab5f5071ccc1b93d4b6804fbb.jpg" alt="Pearl Drop Earrings">
+      <div class="info">
+        <h4>Pearl Drop Earrings</h4>
+        <div class="price">₹99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product earring" data-name="Gold Stud Earrings">
+      <img src="https://i.pinimg.com/1200x/21/00/85/2100852d5daa8a02c62de43f4cd4549b.jpg" alt="Gold Stud Earrings">
+      <div class="info">
+        <h4>Gold Stud Earrings</h4>
+        <div class="price">₹88,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product earring" data-name="Designer Earrings">
+  <img src="https://i.pinimg.com/1200x/1f/60/68/1f606885bddf8a20e55d3032e9fb81d8.jpg">
+  <div class="info">
+    <h4>Designer Earrings</h4>
+    <div class="price">₹1,19,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product earring" data-name="Temple Earrings">
+  <img src="https://i.pinimg.com/1200x/f5/57/94/f55794450bee6f33a2c5eba478b74012.jpg">
+  <div class="info">
+    <h4>Temple Earrings</h4>
+    <div class="price">₹89,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product earring" data-name="Bridal Earrings">
+  <img src="https://i.pinimg.com/1200x/62/ec/5e/62ec5ee16a656187cd64f9b87041a64f.jpg">
+  <div class="info">
+    <h4>Bridal Earrings</h4>
+    <div class="price">₹1,59,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product earring" data-name="Minimal Earrings">
+  <img src="https://i.pinimg.com/1200x/ef/69/d3/ef69d36a6b63af1ac78862a92581ee1d.jpg">
+  <div class="info">
+    <h4>Minimal Earrings</h4>
+    <div class="price">₹69,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product earring" data-name="Diamond Stud Earrings">
+  <img src="https://i.pinimg.com/1200x/8c/40/26/8c4026ea9241d35be1f67f40b3bcc928.jpg">
+  <div class="info">
+    <h4>Diamond Stud Earrings</h4>
+    <div class="price">₹2,19,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+
+    <!-- ===== BRACELETS ===== -->
+    <div class="product bracelet" data-name="Gold Bracelet">
+      <img src="https://i.pinimg.com/1200x/d2/c3/3a/d2c33a85864d3b27e5be05c5716941d9.jpg" alt="Gold Bracelet">
+      <div class="info">
+        <h4>Gold Bracelet</h4>
+        <div class="price">₹1,79,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product bracelet" data-name="Diamond Bracelet">
+      <img src="https://i.pinimg.com/1200x/6f/40/c1/6f40c1dce53114c854784e63d9d2b18d.jpg" alt="Diamond Bracelet">
+      <div class="info">
+        <h4>Diamond Bracelet</h4>
+        <div class="price">₹2,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product bracelet" data-name="Gold Cuff Bracelet">
+      <img src="https://i.pinimg.com/1200x/26/8f/34/268f34d08d67dda8685ae606310cf4fe.jpg" alt="Gold Cuff Bracelet">
+      <div class="info">
+        <h4>Gold Cuff Bracelet</h4>
+        <div class="price">₹2,99,999</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product bracelet" data-name="Designer Bracelet">
+  <img src="https://i.pinimg.com/736x/d7/ea/c3/d7eac308b65510cc44355a71960680f0.jpg">
+  <div class="info">
+    <h4>Designer Bracelet</h4>
+    <div class="price">₹1,49,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product bracelet" data-name="Temple Bracelet">
+  <img src="https://i.pinimg.com/1200x/19/6c/36/196c36b6660e4daf96fc88a83ad3ef98.jpg">
+  <div class="info">
+    <h4>Temple Bracelet</h4>
+    <div class="price">₹1,29,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product bracelet" data-name="Bridal Bracelet">
+  <img src="https://i.pinimg.com/736x/85/ca/45/85ca45b85ed9c70be5118bc77f376e78.jpg">
+  <div class="info">
+    <h4>Bridal Bracelet</h4>
+    <div class="price">₹2,49,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product bracelet" data-name="Minimal Bracelet">
+  <img src="https://i.pinimg.com/736x/37/b8/35/37b8354293b278f4cc8b09b56e81ee5d.jpg">
+  <div class="info">
+    <h4>Minimal Bracelet</h4>
+    <div class="price">₹99,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<div class="product bracelet" data-name="Daily Wear Bracelet">
+  <img src="https://i.pinimg.com/736x/a6/82/86/a6828646483b71cbe1e69d01431d5460.jpg">
+  <div class="info">
+    <h4>Daily Wear Bracelet</h4>
+    <div class="price">₹79,999</div>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+
+<footer id="footer">
+  <div class="footer-grid">
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#">About Us</a>
+      <a href="#">Store Locator</a>
+      <a href="#">Customer Reviews</a>
+    </div>
+    <div>
+      <h4>Info</h4>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">FAQs</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>+91 8983233273</p>
+      <p>sallysingh182@gmail.com</p>
+    </div>
+  </div>
+  <div class="copy">© 2026 Shailendra Jewellers</div>
+</footer>
+
+<script>
+/* FILTER */
+function filterItems(type, btn){
+  let items=document.querySelectorAll('.product');
+  let buttons=document.querySelectorAll('.filters button');
+
+  buttons.forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+
+  items.forEach(item=>{
+    item.style.display = (type==="all" || item.classList.contains(type)) ? "block" : "none";
+  });
+}
+
+/* SEARCH */
+document.getElementById("searchInput").addEventListener("keyup", function(){
+  let query = this.value.toLowerCase();
+  let items = document.querySelectorAll(".product");
+  items.forEach(item=>{
+    let name = item.dataset.name.toLowerCase();
+    item.style.display = (name.includes(query) || query==="") ? "block" : "none";
+  });
+});
+
+/* CART */
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+document.querySelectorAll(".product").forEach(product=>{
+  let btn = product.querySelector("button");
+  btn.addEventListener("click", ()=>{
+    let name = product.dataset.name;
+    let priceText = product.querySelector(".price").innerText;
+    let price = parseInt(priceText.replace(/[₹,]/g,""));
+
+    cart.push({ name, price });
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartCount();
+    alert(name + " added to cart 💎");
+  });
+});
+
+/* CART COUNT */
+function updateCartCount(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let el = document.getElementById("cartCount");
+  if(el) el.innerText = cart.length;
+}
+updateCartCount();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Successful | Shailendra Jewellers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f7f7f7;
+}
+.container{
+  max-width:650px;
+  margin:80px auto;
+  background:#fff;
+  padding:50px 30px;
+  border-radius:24px;
+  text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.15);
+}
+.check{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#25D366;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 25px;
+  font-size:46px;
+  color:#fff;
+}
+h1{
+  font-family:'Playfair Display';
+  margin-bottom:10px;
+}
+p{
+  color:#666;
+  margin-bottom:25px;
+}
+.details, .order-box{
+  background:#f7f7f7;
+  padding:20px;
+  border-radius:16px;
+  text-align:left;
+  margin-bottom:30px;
+}
+.details div{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+  font-size:14px;
+}
+.details div span:last-child{
+  font-weight:600;
+}
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:6px;
+}
+.total{
+  border-top:1px solid #ddd;
+  margin-top:10px;
+  padding-top:10px;
+  font-weight:600;
+}
+button{
+  padding:14px 36px;
+  border:none;
+  border-radius:30px;
+  background:#111;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+.home{
+  margin-top:16px;
+  background:#d4af37;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="check">✔</div>
+
+  <h1>Payment Successful</h1>
+  <p>Thank you for shopping with Shailendra Jewellers 💎</p>
+
+  <!-- PAYMENT DETAILS -->
+  <div class="details">
+    <div><span>Payment Status</span><span>Success</span></div>
+    <div><span>Transaction ID</span><span id="txnId"></span></div>
+    <div><span>Payment Mode</span><span>UPI / Card</span></div>
+    <div><span>Estimated Delivery</span><span>3–5 Days</span></div>
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="order-box">
+    <h3 style="margin-bottom:10px;font-family:'Playfair Display'">
+      Order Summary
+    </h3>
+    <div id="orderItems"></div>
+    <div class="total" id="orderTotal"></div>
+  </div>
+
+  <button onclick="goHome()">Continue Shopping</button><br>
+  <button class="home" onclick="goHome()">Back to Home</button>
+
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let itemsBox = document.getElementById("orderItems");
+let totalBox = document.getElementById("orderTotal");
+
+// random transaction id
+document.getElementById("txnId").innerText =
+  "#SJ" + Math.floor(100000 + Math.random() * 900000);
+
+let total = 0;
+
+if(cart.length === 0){
+  itemsBox.innerHTML = "<p style='color:#777'>No items found</p>";
+}else{
+  cart.forEach(item=>{
+    total += item.price;
+    itemsBox.innerHTML += `
+      <div class="order-item">
+        <span>${item.name}</span>
+        <span>₹${item.price.toLocaleString()}</span>
+      </div>
+    `;
+  });
+
+  totalBox.innerText = "Total Paid : ₹" + total.toLocaleString();
+}
+
+function goHome(){
+  localStorage.removeItem("cart");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

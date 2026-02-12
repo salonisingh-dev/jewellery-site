@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shailendra Jewellers | Luxury Fine Jewelry</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --gold:#d4af37;
+  --dark:#111;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;color:#222;background:#fff}
+section{padding:90px 20px}
+.container{max-width:1300px;margin:auto}
+
+/* HEADER */
+header{
+position:sticky;top:0;z-index:1000;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(10px);
+box-shadow:0 10px 30px rgba(0,0,0,.08)
+}
+nav{
+max-width:1300px;margin:auto;
+display:flex;justify-content:space-between;
+align-items:center;padding:16px 20px
+}
+nav a{text-decoration:none;color:#222;font-weight:500}
+nav a:hover{color:var(--gold)}
+nav ul{list-style:none;display:flex;gap:26px;align-items:center}
+nav ul li{position:relative}
+
+.nav-icons{
+display:flex;gap:26px;align-items:center
+}
+.nav-icons a{font-size:12px;text-align:center;position:relative}
+.nav-icons i{font-size:20px}
+
+.cart-count{
+position:absolute;top:-6px;right:6px;
+background:red;color:#fff;
+width:16px;height:16px;
+border-radius:50%;
+font-size:10px;
+display:flex;align-items:center;justify-content:center
+}
+
+/* MOBILE */
+.menu-btn{display:none;font-size:24px}
+@media(max-width:900px){
+nav ul{
+position:fixed;top:70px;left:-100%;
+width:100%;height:calc(100vh - 70px);
+background:#fff;flex-direction:column;
+padding-top:40px;transition:.4s
+}
+nav ul.active{left:0}
+.menu-btn{display:block}
+}
+
+/* HERO */
+.hero{height:90vh;position:relative;overflow:hidden}
+.slide{
+position:absolute;inset:0;
+background-size:cover;background-position:center;
+opacity:0;transition:1.5s
+}
+.slide.active{opacity:1}
+.hero-content{
+position:absolute;inset:0;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+color:#fff;text-align:center;
+background:rgba(0,0,0,.55)
+}
+.hero h1{font-family:'Playfair Display';font-size:60px}
+.hero p{font-size:20px}
+
+/* PRODUCTS */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px
+}
+.product{
+background:#fff;border-radius:24px;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
+overflow:hidden;transition:.4s
+}
+.product:hover{transform:translateY(-12px)}
+.product img{width:100%;height:300px;object-fit:cover}
+.product-info{padding:25px}
+.product-info h3{font-family:'Playfair Display'}
+.product-info button{
+margin-top:10px;padding:12px 30px;
+border:none;border-radius:30px;
+background:linear-gradient(135deg,#e6c76b,#d4af37);
+color:#fff;cursor:pointer
+}
+
+/* TRUST */
+.trust-strip{
+display:flex;justify-content:center;
+gap:50px;flex-wrap:wrap;
+text-align:center;margin-bottom:40px
+}
+.trust-strip i{font-size:32px;color:var(--gold)}
+
+/* FOOTER */
+footer{background:#f5f5f5;padding:80px 20px}
+.copy{text-align:center;margin-top:40px;color:#777}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+
+<!-- 🔥 INLINE LOGO (FINAL) -->
+<div style="display:flex;align-items:center;gap:12px">
+  <div style="
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#f6e27a,#d4af37);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Playfair Display';
+    font-weight:700;
+    font-size:20px;
+    color:#111;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+  ">
+    SJ
+  </div>
+
+  <div style="
+    font-family:'Playfair Display';
+    font-size:28px;
+    color:#d4af37;
+    font-weight:700;
+    line-height:1.1
+  ">
+    Shailendra<br>
+    <span style="font-size:14px;letter-spacing:3px;color:#777">
+      JEWELLERS
+    </span>
+  </div>
+</div>
+
+<div class="menu-btn" onclick="toggleMenu()">
+<i class="fa-solid fa-bars"></i>
+</div>
+
+<ul id="menu">
+<li><a href="index.html">Home</a></li>
+<li><a href="product.html">Collections</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+<div class="nav-icons">
+<a href="cart.html">
+<i class="fa-solid fa-bag-shopping"></i>
+<span class="cart-count" id="cartCount">0</span><br>CART
+</a>
+</div>
+
+</nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+<div class="slide active" style="background-image:url('https://i.pinimg.com/1200x/71/45/0e/71450eb56f369aecafc69d5a14dc0755.jpg')"></div>
+<div class="slide" style="background-image:url('https://i.pinimg.com/736x/92/5f/d3/925fd3aa2554dde0623f39e030c0f733.jpg')"></div>
+<div class="slide" style="background-image:url('https://i.pinimg.com/1200x/84/da/2f/84da2f2ede529e5e68a484c542cab1d7.jpg')"></div>
+
+<div class="hero-content">
+<h1>Timeless Luxury Jewelry</h1>
+<p>Crafted for weddings & forever moments</p>
+</div>
+</div>
+
+<!-- COLLECTIONS -->
+<section>
+<div class="container">
+<h2 style="text-align:center;font-family:'Playfair Display';font-size:40px">
+Our <span style="color:var(--gold)">Collections</span>
+</h2><br><br>
+
+<div class="products">
+
+<div class="product">
+<img src="https://i.pinimg.com/736x/3e/76/07/3e7607254f0c2c104bac149c70e9dd06.jpg">
+<div class="product-info">
+<h3>Gold Necklace</h3>
+<p>₹2,99,999</p>
+<button onclick="addToCart('Gold Necklace',299999)">Add to Cart</button>
+</div>
+</div>
+
+<div class="product">
+<img src="https://i.pinimg.com/736x/0a/e3/6b/0ae36b1118ecefe3932017a7da9a3dc3.jpg">
+<div class="product-info">
+<h3>Diamond Ring</h3>
+<p>₹4,99,999</p>
+<button onclick="addToCart('Diamond Ring',499999)">Add to Cart</button>
+</div>
+</div>
+
+<div class="product">
+<img src="https://i.pinimg.com/736x/36/93/b9/3693b9bc8bf8f2bdbefbab199b5dc9d6.jpg">
+<div class="product-info">
+<h3>Silver Earrings</h3>
+<p>₹99,999</p>
+<button onclick="addToCart('Silver Earrings',99999)">Add to Cart</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- TRUST + VIDEO -->
+<section style="background:#111;color:#fff">
+<div class="container" style="text-align:center">
+
+<div class="trust-strip">
+<div><i class="fa-solid fa-certificate"></i><p>BIS Hallmarked</p></div>
+<div><i class="fa-solid fa-gem"></i><p>Certified Diamonds</p></div>
+<div><i class="fa-solid fa-rotate-left"></i><p>Lifetime Buyback</p></div>
+<div><i class="fa-solid fa-truck-fast"></i><p>Insured Delivery</p></div>
+</div>
+
+<h2 style="font-family:'Playfair Display';font-size:42px">
+February Wedding Edit
+</h2>
+<p style="color:#ccc;margin:20px 0 40px">
+Diamonds designed for your forever.
+</p>
+
+<div style="max-width:900px;margin:auto;border-radius:30px;overflow:hidden">
+<video src="admodel.mp4" autoplay muted loop playsinline style="width:100%"></video>
+</div>
+
+</div>
+</section>
+
+<footer id="contact">
+<section style="background:#f7f7f7">
+<div class="container" style="text-align:center">
+<h2 style="font-family:'Playfair Display';font-size:40px">
+Contact <span style="color:#d4af37">Us</span>
+</h2>
+
+<p style="margin:15px 0 40px;color:#555">
+We’d love to hear from you.
+</p>
+
+<p><strong>Shailendra Jewellers</strong></p>
+<p>BIS : HM/C - 6290031216</p>
+<p>📞 +91 8983233273</p>
+<p>✉ sallysingh182@gmail.com</p>
+<p>📍 Nalasopara W, Maharashtra</p>
+</div>
+</section>
+
+<div class="copy">© 2026 Shailendra Jewellers</div>
+</footer>
+
+<script>
+let slides=document.querySelectorAll(".slide"),i=0;
+setInterval(()=>{
+slides[i].classList.remove("active");
+i=(i+1)%slides.length;
+slides[i].classList.add("active");
+},4000);
+
+function toggleMenu(){
+document.getElementById("menu").classList.toggle("active");
+}
+
+function addToCart(name, price){
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.push({name, price});
+localStorage.setItem("cart", JSON.stringify(cart));
+document.getElementById("cartCount").innerText = cart.length;
+alert(name + " added to cart 💎");
+}
+</script>
+
+</body>
+</html>
